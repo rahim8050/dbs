@@ -20,6 +20,8 @@ from dbs import views
 
 
 urlpatterns = [
-    path('',views.test,name='test'),
+    path('',views.customers,name='test'),
+    path('customers/delete/<int:customer_id>', views.delete_customer, name='delete_customer'),
+
     path('admin/', admin.site.urls),
 ]
