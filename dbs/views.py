@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-
+from dbs.app_forms import CustomerForm
 from dbs.models import Customer, Deposit
 
 
@@ -36,3 +36,8 @@ def delete_customer(request, customer_id):
     customer = Customer.objects.get(id=customer_id) # select * from customers where id=7
     customer.delete() # delete from customers where id =
     return redirect('customers')
+
+
+def add_customer(request):
+    form = CustomerForm()
+    return render(request, 'customer_form.html', {"form": form})

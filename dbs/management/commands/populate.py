@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 
-from dbs.models import Customer
+from dbs.models import Customer, Deposit
 
 
 class Command(BaseCommand):
@@ -110,3 +110,4 @@ class Command(BaseCommand):
             customer.save()
         print("Populated customers successfully")
         # python manage.py populate
+
