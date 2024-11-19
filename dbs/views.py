@@ -1,7 +1,12 @@
+from lib2to3.fixes.fix_input import context
+from pyexpat.errors import messages
+
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.template.context_processors import request
 
-from dbs.app_forms import CustomerForm
+from dbs.app_forms import CustomerForm, LoginForm
 from dbs.models import Customer, Deposit
 
 
@@ -23,7 +28,7 @@ def test(request):
     # d1.save()
     # deposit_count = Deposit.objects.count()
 
-    return HttpResponse(f"Ok, Done, we have {customer_count} customers and {deposit_count} deposits")
+    # return HttpResponse(f"Ok, Done, we have {customer_count} customers and {deposit_count} deposits")
 
 
 def customers(request):
@@ -50,3 +55,13 @@ def add_customer(request):
 
 # pip install django-crispy-forms
 # pip install crispy-bootstrap5
+def login_user(request):
+     form = LoginForm()
+     return render(request, "log_in.html", {"form": form})
+
+
+
+
+
+def logout_user(request):
+    return None
