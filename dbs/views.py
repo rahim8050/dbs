@@ -27,7 +27,7 @@ def test(request):
 
 
 def customers(request):
-    data = Customer.objects.all()
+    data = Customer.objects.all().order_by('-id').values()
     return render(request,'customers.html',{'customers':data})
 
 
