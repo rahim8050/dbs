@@ -2,6 +2,7 @@ from lib2to3.fixes.fix_input import context
 from pyexpat.errors import messages
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.context_processors import request
@@ -30,19 +31,21 @@ def test(request):
 
     # return HttpResponse(f"Ok, Done, we have {customer_count} customers and {deposit_count} deposits")
 
-
+@login_required
 def customers(request):
     data = Customer.objects.all().order_by('-id').values()
     return render(request,'customers.html',{'customers':data})
 
 
-
+@login_required
+@permission_required('dbs.delete_customer', raise_exception=True)
 def delete_customer(request, customer_id):
     customer = Customer.objects.get(id=customer_id) # select * from customers where id=7
     customer.delete() # delete from customers where id =
     return redirect('customers')
 
-
+@login_required
+@permission_required('dbs.add_customer',raise_exception=True)
 def add_customer(request):
     if request.method == 'POST':
         form = CustomerForm(request.POST)
@@ -73,7 +76,7 @@ def login_user(request):
 
 
 
-
+@login_required
 def logout_user(request):
     logout(request)
     return redirect('login')

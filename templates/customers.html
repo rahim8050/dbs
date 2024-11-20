@@ -22,9 +22,12 @@
                   <td>{{ customer.last_name }}</td>
                   <td>{{ customer.email }}</td>
                   <td>{{ customer.created_at }}</td>
-                  <td>
+          {% if request.user.has_perm("dbs.delete_customer") %}
+          	<td>
                     <a class="btn btn-danger" href="{% url 'delete_customer' customer.id %}">Remove</a>
                 </td>
+          {% endif %} 
+                  
               </tr>
   {% empty %}
   	<p>no customers in the sacco</p>
