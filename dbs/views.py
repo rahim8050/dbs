@@ -1,6 +1,6 @@
 from lib2to3.fixes.fix_input import context
 from pyexpat.errors import messages
-
+from django.core.paginator import Paginator, EmptyPage
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
@@ -33,8 +33,15 @@ def test(request):
 
 @login_required
 def customers(request):
-    data = Customer.objects.all().order_by('-id').values()
-    return render(request,'customers.html',{'customers':data})
+    data = Customer.objects.all()
+    data = Customer.objects.all().order_by('id').values()  # ORM select * from customers
+    paginator = Paginator(data, 15)
+    page = request.GET.get('page', 1)
+    try:
+        paginated_data = paginator.page(page)
+    except  EmptyPage:
+        paginated_data = paginator.page(1)
+    return render(request, "customers.html", {"data": paginated_data})
 
 
 @login_required

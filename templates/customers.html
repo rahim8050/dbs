@@ -7,14 +7,14 @@
 <h2>customers</h2>
 <table class="table">
     <tr>
-        <th>delete</th>
+        
     <th>id</th>
     <th>first name</th>
     <th>last name</th>
     <th>email</th>
     <th>joining date</th>
     </tr>
-  {% for customer in customers %}
+   {% for customer in data.object_list %}
   	<tr>
       <tr>
                   <td>{{ customer.id }}</td>
@@ -26,8 +26,8 @@
           	<td>
                     <a class="btn btn-danger" href="{% url 'delete_customer' customer.id %}">Remove</a>
                 </td>
-          {% endif %} 
-                  
+          {% endif %}
+
               </tr>
   {% empty %}
   	<p>no customers in the sacco</p>
