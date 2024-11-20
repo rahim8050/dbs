@@ -26,6 +26,9 @@
           	<td>
                     <a class="btn btn-danger" href="{% url 'delete_customer' customer.id %}">Remove</a>
                 </td>
+              <td>
+                    <a class="btn btn-info" href="{% url 'customer_details' customer.id %}">Details</a>
+                </td>
           {% endif %}
 
               </tr>
@@ -36,5 +39,17 @@
     
     
 </table>
+  <div class="row justify-content-center">
+            <div class="col-sm-2">
+                {% if data.has_previous %}
+                    <a class="btn btn-outline-primary btn-sm" href="?page={{ data.previous_page_number }}"> << </a>
+                {% endif %}
+                <span class="mx-3">{{ data.number }}</span>
+                {% if data.has_next %}
+                    <a class="btn btn-outline-primary btn-sm" href="?page={{ data.next_page_number }}"> >> </a>
+                {% endif %}
+            </div>
+        </div>
 </div>
+    
 {% endblock %}

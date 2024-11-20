@@ -1,0 +1,63 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block title %}
+	<title>Customer Details</title>
+{% endblock %}
+{% block content %}
+	<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <table class="table table-striped">
+                <tr>
+                    <td>first name</td>
+                    <td>{{ customer.first_name }}</td>
+                </tr>
+                 <tr>
+                    <td>last name</td>
+                    <td>{{ customer.last_name }}</td>
+                </tr>
+                 <tr>
+                    <td>email</td>
+                    <td>{{ customer.email }}</td>
+                </tr>
+                 <tr>
+                    <td>first name</td>
+                    <td>{{ customer.first_name }}</td>
+                </tr>
+                 <tr>
+                    <td>Date of birth</td>
+                    <td>{{ customer.dob | date:"d-m-y " }}</td>
+                </tr>
+                 <tr>
+                    <td>weight</td>
+                    <td>{{ customer.weight }}</td>
+                </tr>
+                 <tr>
+                    <td>gender</td>
+                    <td>{{ customer.gender }}</td>
+                </tr>
+            </table>
+            <div class="col-sm-4">
+                <img src="{% static 'icon.png' %}" alt="">
+            </div>
+       <div class="col-sm-4">
+               <p>Deposits</p>
+               <table class="table table-striped">
+                   <tr>
+                       <th>Date</th>
+                       <th>Amount</th>
+                       <th>Status</th>
+                   </tr>
+                   {% for deposit in deposits %}
+                       <tr>
+                           <td>{{ deposit.created_at | date:"d-m-Y" }}</td>
+                           <td>{{ deposit.amount }}</td>
+                           <td>{{ deposit.status }}</td>
+                       </tr>
+                   {% endfor %}
+               </table>   
+        </div>
+    </div>
+    </div>
+{% endblock %}

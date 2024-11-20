@@ -25,9 +25,9 @@ def test(request):
     c1 = Customer.objects.get(id=1)
     print(c1)
 
-    # d1 = Deposit(amount=1000, status=True, customer=c1)
-    # d1.save()
-    # deposit_count = Deposit.objects.count()
+    d1 = Deposit(amount=1000, status=True, customer=c1)
+    d1.save()
+    deposit_count = Deposit.objects.count()
 
     # return HttpResponse(f"Ok, Done, we have {customer_count} customers and {deposit_count} deposits")
 
@@ -87,3 +87,9 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+def customer_details(request,customer_id):
+    customer = Customer.objects.get(id=customer_id)
+    deposits = Deposit.objects.filter(customer=customer_id)
+    return render(request,"details.html",{"deposits":deposits,"customer":customer})
