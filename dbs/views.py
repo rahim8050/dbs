@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.context_processors import request
 
 from dbs.app_forms import CustomerForm, LoginForm
@@ -93,3 +93,17 @@ def customer_details(request,customer_id):
     customer = Customer.objects.get(id=customer_id)
     deposits = Deposit.objects.filter(customer=customer_id)
     return render(request,"details.html",{"deposits":deposits,"customer":customer})
+
+
+def update_customer(request,customer_id):
+    customer = get_object_or_404(Customer, id=customer_id)
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('customers')
+    else:
+        form = CustomerForm(instance=customer)
+    return render(request, 'customer_update_form.html', {"form": form})
+
+    return None

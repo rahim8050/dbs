@@ -7,13 +7,13 @@
 <h2>customers</h2>
 <table class="table">
     <tr>
-        
+        <th>Remove</th>
     <th>id</th>
     <th>first name</th>
     <th>last name</th>
     <th>email</th>
     <th>joining date</th>
-        <th>details</th>
+         <th>Remove</th>
         <th>update</th>
     </tr>
    {% for customer in data.object_list %}
@@ -30,6 +30,9 @@
                 </td>
               <td>
                     <a class="btn btn-info" href="{% url 'customer_details' customer.id %}">Details</a>
+                </td>
+               <td>
+                    <a class="btn btn-info" href="{% url 'update_customer' customer.id %}">Update</a>
                 </td>
           {% endif %}
 
@@ -48,7 +51,7 @@
                 {% endif %}
                 <span class="mx-3">{{ data.number }}</span>
                 {% if data.has_next %}
-                    <a class="btn btn-outline-primary w-100 btn-sm" href="?page={{ data.next_page_number }}"> >> </a>
+                    <a class="btn btn-outline-success w-100 btn-sm" href="?page={{ data.next_page_number }}"> >> </a>
                 {% endif %}
             </div>
         </div>
