@@ -105,5 +105,3 @@ def update_customer(request,customer_id):
     else:
         form = CustomerForm(instance=customer)
     return render(request, 'customer_update_form.html', {"form": form})
-
-    return None
